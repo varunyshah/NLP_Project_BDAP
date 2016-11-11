@@ -1,0 +1,27 @@
+### Import packages
+import nltk
+from nltk.tokenize import RegexpTokenizer
+
+file = open("filepath.txt").read()
+tokenizer = RegexpTokenizer(r'\w+')
+token = tokenizer.tokenize(file)
+
+### Calculate Freq of words in file
+freq = nltk.FreqDist(token)
+
+### Sorted Tokens
+token_sort = sorted(freq.items(), key = lambda x: x[1],reverse=True)
+token_sort[1:10]
+
+###function to input no of words to be printed with frequency
+out_file_freq = open("output_filepath.txt","w")
+user_input = input("Enter the number of words to be printed : ")    
+
+def no_of_words(n):
+        a = token_sort[1:n+1]
+        for k in range(len(a)):
+            freq_word = str(a[k]).lstrip("(").rstrip("')")
+            out_file_freq.write(freq_word+"\n")
+        out_file_freq.close()        
+    
+no_of_words(user_input)

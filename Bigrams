@@ -1,0 +1,44 @@
+### Bigrams with all the stops words & symbols also
+
+f = open('file_path.txt')
+raw = f.read()
+
+tokens = nltk.word_tokenize(raw)
+
+#Creation of bigrams
+bgs = nltk.bigrams(tokens)
+
+#compute frequency distribution for all the bigrams in the text
+fdist = nltk.FreqDist(bgs)
+sorted_words=sorted(fdist.items(),key=lambda x:x[1],reverse=True)
+
+output_file = open("out_bigram_Uncleaned.txt","w")
+
+for k,v in sorted_words:
+    bi_word =(k[0]+"_"+k[1]+" "+str(v)+"\n") 
+    output_file.write(bi_word)
+output_file.close()
+ 
+
+### Bigrams without all the stops words & symbols
+
+tokenizer = RegexpTokenizer(r'\w+')
+clean_token= tokenizer.tokenize(raw)
+
+stop = set(stopwords.words('english'))
+without_stop= [i for i in clean_token if i not in stop]
+    
+#Create your bigrams
+bgs_clean = nltk.bigrams(without_stop)
+
+#compute frequency distribution for all the bigrams in the text
+fdist = nltk.FreqDist(bgs_clean)
+sorted_words_clean=sorted(fdist.items(),key=lambda x:x[1],reverse=True)
+
+output_file = open("out_bigram_cleaned.txt","w")
+
+for k,v in sorted_words_clean:
+    bi_word_clean =(k[0]+"_"+k[1]+" "+str(v)+"\n") 
+    output_file.write(bi_word_clean)
+output_file.close()
+ 

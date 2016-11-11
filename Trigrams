@@ -1,0 +1,27 @@
+##  Create trigrams Unclean
+output_file = open("out_trigram_unclean.txt","w")
+tgs = nltk.trigrams(token)
+
+fdist = nltk.FreqDist(tgs)
+fdist_sort_tri = sorted(fdist.items(),key= lambda x : x[1],reverse = True)
+for k,v in fdist_sort_tri:
+    tri_word =(k[0]+"_"+k[1]+"_"+k[2]+" "+str(v)+"\n")
+
+    output_file.write(tri_word)
+output_file.close()
+
+
+##  Create trigrams Clean 
+from nltk.corpus import stopwords
+stop = set(stopwords.words('english'))
+cleantoken_stop= [i for i in clean_token if i not in stop]  
+output_file = open("out_trigram_clean.txt","w")
+tgs = nltk.trigrams(cleantoken_stop)
+
+fdist = nltk.FreqDist(tgs)
+fdist_sort_tri = sorted(fdist.items(),key= lambda x : x[1],reverse = True)
+for k,v in fdist_sort_tri:
+    tri_word =(k[0]+"_"+k[1]+"_"+k[2]+" "+str(v)+"\n")
+
+    output_file.write(tri_word)
+output_file.close()
